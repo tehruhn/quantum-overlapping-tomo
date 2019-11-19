@@ -5,6 +5,7 @@ from qiskit.providers.jobstatus import JobStatus, JOB_FINAL_STATES
 from math import log2, ceil
 from copy import deepcopy
 import time
+import numpy as np
 
 # custom imports 
 from create_ghz_circuit import create_ghz_circuit
@@ -96,9 +97,16 @@ density_matrix.append(process_dictionary.process_dictionary_zy12(n, result_dict,
 
 m = density_matrix
 dm = [[m[j][i] for j in range(len(m))] for i in range(len(m[0]))] 
+# print("------")
+# print(process_dictionary.process_dictionary_xx_yy_zz("all_x_basis", result_dict))
+# print("------")
 # print(dm)
 # print(reshape_vec_to_mat(dm[0]))
-print(Negativity(MatrixGeneratingFunction(reshape_vec_to_mat(dm[0]))))
+# print("------")
+for i in range(len(dm)):
+	print(Negativity(MatrixGeneratingFunction(reshape_vec_to_mat(dm[i]))))
+
+print(MatrixGeneratingFunction(np.matrix([[0,0,1,0],[0,1,1,0],[0,0,1,0],[1,0,0,0]])))
 
 
 
