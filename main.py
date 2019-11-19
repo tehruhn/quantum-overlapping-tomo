@@ -10,7 +10,7 @@ import time
 from create_ghz_circuit import create_ghz_circuit
 from create_qot_circuits import create_qot_circuits
 from convert_ibm_returned_result_to_dictionary import convert_ibm_returned_result_to_dictionary
-from process_dictionary import process_dictionary
+from process_dictionary import process_dictionary_xx_yy_zz, process_dictionary_ix_iy_iz
 
 IBMQ.load_account()
 provider = IBMQ.get_provider(hub='ibm-q-community', group='hackathon', project='tokyo-nov-2019')
@@ -67,11 +67,18 @@ result = job.result()
 result_dict = convert_ibm_returned_result_to_dictionary(result)
 
 print("result_dict:", result_dict)
-vals_for_all_x_basis = process_dictionary("all_x_basis", result_dict)
+
+vals_for_all_x_basis = process_dictionary_xx_yy_zz("all_x_basis", result_dict)
 print("for all x basis:", vals_for_all_x_basis)
-vals_for_all_y_basis = process_dictionary("all_y_basis", result_dict)
+vals_for_all_y_basis = process_dictionary_xx_yy_zz("all_y_basis", result_dict)
 print("for all y basis:", vals_for_all_y_basis)
-vals_for_all_z_basis = process_dictionary("all_z_basis", result_dict)
+vals_for_all_z_basis = process_dictionary_xx_yy_zz("all_z_basis", result_dict)
 print("for all z basis:", vals_for_all_z_basis)
 
+vals_for_all_x_basis1 = process_dictionary_ix_iy_iz("all_x_basis", result_dict)
+print("for all x basis:", vals_for_all_x_basis1)
+vals_for_all_y_basis1 = process_dictionary_ix_iy_iz("all_y_basis", result_dict)
+print("for all y basis:", vals_for_all_y_basis1)
+vals_for_all_z_basis1 = process_dictionary_ix_iy_iz("all_z_basis", result_dict)
+print("for all z basis:", vals_for_all_z_basis1)
     
