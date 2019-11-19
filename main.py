@@ -13,6 +13,9 @@ from convert_ibm_returned_result_to_dictionary import convert_ibm_returned_resul
 import process_dictionary
 from shot_count_from_dict_of_results import shot_count_from_dict_of_results
 from shot_count_from_results import shot_count_from_results
+from reshape_vec_to_mat import reshape_vec_to_mat
+from mgf import MatrixGeneratingFunction
+from negativity import Negativity
 
 IBMQ.load_account()
 provider = IBMQ.get_provider(hub='ibm-q-community', group='hackathon', project='tokyo-nov-2019')
@@ -68,25 +71,6 @@ print("complete!")
 result = job.result()
 result_dict = convert_ibm_returned_result_to_dictionary(result)
 
-print("result_dict:", result_dict)
-
-# vals_for_all_x_basis = process_dictionary_xx_yy_zz("all_x_basis", result_dict)
-# print("for all x basis:", vals_for_all_x_basis)
-# vals_for_all_y_basis = process_dictionary_xx_yy_zz("all_y_basis", result_dict)
-# print("for all y basis:", vals_for_all_y_basis)
-# vals_for_all_z_basis = process_dictionary_xx_yy_zz("all_z_basis", result_dict)
-# print("for all z basis:", vals_for_all_z_basis)
-
-# vals_for_all_x_basis1 = process_dictionary_ix_iy_iz("all_x_basis", result_dict)
-# print("for all ix basis:", vals_for_all_x_basis1)
-# vals_for_all_y_basis1 = process_dictionary_ix_iy_iz("all_y_basis", result_dict)
-# print("for all iy basis:", vals_for_all_y_basis1)
-# vals_for_all_z_basis1 = process_dictionary_ix_iy_iz("all_z_basis", result_dict)
-# print("for all iz basis:", vals_for_all_z_basis1)
-
-# vals_for_xy12 = process_dictionary_xy12(n, result_dict, hash_functions);
-# print(vals_for_xy12)
-
 density_matrix = []
 size = (n*(n-1))/2
 ones = []
@@ -112,7 +96,10 @@ density_matrix.append(process_dictionary.process_dictionary_zy12(n, result_dict,
 
 m = density_matrix
 dm = [[m[j][i] for j in range(len(m))] for i in range(len(m[0]))] 
-print(dm)
+# print(dm)
+# print(reshape_vec_to_mat(dm[0]))
+print(Negativity(MatrixGeneratingFunction(reshape_vec_to_mat(dm[0]))))
+
 
 
 
