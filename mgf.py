@@ -16,5 +16,5 @@ def MatrixGeneratingFunction(x):
     r = np.zeros((4,4))
     for i in range(0,4):
         for j in range(0,4):
-            r = r + (x.item(i,j) * np.kron(Sigma(i), Sigma(j)))
+            r = r + (x.item(i,j) * np.kron(Sigma(i), Sigma(j))/4)
     return r

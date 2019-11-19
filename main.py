@@ -17,6 +17,7 @@ from shot_count_from_results import shot_count_from_results
 from reshape_vec_to_mat import reshape_vec_to_mat
 from mgf import MatrixGeneratingFunction
 from negativity import Negativity
+from simple_circuit import simple_circuit
 
 IBMQ.load_account()
 provider = IBMQ.get_provider(hub='ibm-q-community', group='hackathon', project='tokyo-nov-2019')
@@ -30,12 +31,14 @@ n = 4
 # qubit partition sizes
 k = 2
 
+
 # connections for graph state
 edges = []
 for i in range(n-1):
     edges.append([i,i+1])
 
-quantum_circuit = create_ghz_circuit(edges)
+quantum_circuit = simple_circuit()
+# quantum_circuit = create_ghz_circuit(edges)
 
 # global hash function    
 hash_functions = []
@@ -65,18 +68,31 @@ while not complete:
     if job.status() in JOB_FINAL_STATES:
         complete = True
     else:
-        time.sleep(30)
+        time.sleep(3)
         print("computing...")
 print("complete!")        
 
 result = job.result()
 result_dict = convert_ibm_returned_result_to_dictionary(result)
 
+# make new dict with reversed keys
+new_dict = {}
+list_of_keys = list(result_dict.keys())
+for key in list_of_keys:
+	new_dict[key] = {}
+	temp_dict = result_dict[key]
+	l2_of_keys = list(temp_dict.keys())
+	for key2 in l2_of_keys:
+		new_dict[key]["".join(reversed(key2))] = temp_dict[key2]
+
+result_dict = new_dict
+print("reversed IBM output")
+
 density_matrix = []
 size = (n*(n-1))/2
 ones = []
 for i in range(int(size)):
-	ones.append(1/4)
+	ones.append(1)
 
 density_matrix.append(ones)
 density_matrix.append(process_dictionary.process_dictionary_ix_iy_iz("all_x_basis", result_dict))
@@ -97,26 +113,35 @@ density_matrix.append(process_dictionary.process_dictionary_zy12(n, result_dict,
 
 m = density_matrix
 dm = [[m[j][i] for j in range(len(m))] for i in range(len(m[0]))] 
-# print("------")
-# print(process_dictionary.process_dictionary_xx_yy_zz("all_x_basis", result_dict))
-# print("------")
-print(result_dict["all_x_basis"])
-for i in range(len(dm)):
-	mat = MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))
-	# print(reshape_vec_to_mat(dm[0]))
-	print("------")
-	trc = 0
-	for i in range(len(mat)):
-		for j in range(len(mat)):
-			if i == j:
-				trc += mat.item(i,j)
+# print(result_dict["all_x_basis"])
+# print("--------")
+# print(process_dictionary.process_dictionary_xx_yy_zz("all_z_basis", result_dict))
+# print("--------")
 
-	print(trc)
+print(process_dictionary.process_dictionary_ix_iy_iz("all_z_basis", result_dict))
+print("--------")
+print(process_dictionary.process_dictionary_xi_yi_zi("all_z_basis", result_dict))
+print("--------")
+print(process_dictionary.process_dictionary_xx_yy_zz("all_z_basis", result_dict))
+print("--------")
+print(process_dictionary.process_dictionary_xz12(n, result_dict, hash_functions))
+print("--------")
 for i in range(len(dm)):
 	print(Negativity(MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))))
 
-# print(Negativity(MatrixGeneratingFunction(np.matrix([[0,0,1,0],[0,1,1,0],[0,0,1,0],[1,0,0,0]]))))
+print("--------")
+print(MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[0]))))
 
+print("--------")
+print(reshape_vec_to_mat(dm[5]))
 
+for i in range(len(dm)):
+	mat = MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))
+	total = 0;
+	for j in range(mat.shape[0]):
+		for k in range(mat.shape[1]):
+			if j == k:
+				total += mat.item(j,k)
+	print(total)
 
 
