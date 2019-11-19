@@ -10,6 +10,8 @@ import time
 from create_ghz_circuit import create_ghz_circuit
 from create_qot_circuits import create_qot_circuits
 from convert_ibm_returned_result_to_dictionary import convert_ibm_returned_result_to_dictionary
+from shot_count_from_dict_of_results import shot_count_from_dict_of_results
+from shot_count_from_results import shot_count_from_results
 
 IBMQ.load_account()
 provider = IBMQ.get_provider(hub='ibm-q-community', group='hackathon', project='tokyo-nov-2019')
@@ -65,6 +67,8 @@ print("complete!")
 result = job.result()
 result_dict = convert_ibm_returned_result_to_dictionary(result)
 
-print("result_dict:", result_dict)
+print("shot_count:", str(shot_count_from_dict_of_results(result_dict)))
+
+#print("result_dict:", result_dict)
     
     
