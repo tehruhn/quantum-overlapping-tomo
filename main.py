@@ -10,6 +10,7 @@ import time
 from create_ghz_circuit import create_ghz_circuit
 from create_qot_circuits import create_qot_circuits
 from convert_ibm_returned_result_to_dictionary import convert_ibm_returned_result_to_dictionary
+from process_dictionary import process_dictionary
 
 IBMQ.load_account()
 provider = IBMQ.get_provider(hub='ibm-q-community', group='hackathon', project='tokyo-nov-2019')
@@ -66,5 +67,7 @@ result = job.result()
 result_dict = convert_ibm_returned_result_to_dictionary(result)
 
 print("result_dict:", result_dict)
-    
+vals_for_all_x_basis = process_dictionary("all_x_basis", result_dict)
+print("vector is:", vals_for_all_x_basis)
+
     
