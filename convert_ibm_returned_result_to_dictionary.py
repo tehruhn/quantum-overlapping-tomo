@@ -1,5 +1,3 @@
-
-
 def convert_ibm_returned_result_to_dictionary(returned_result):
     results_dict = {}
     names = []

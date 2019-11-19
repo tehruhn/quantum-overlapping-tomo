@@ -12,6 +12,7 @@ from create_qot_circuits import create_qot_circuits
 from convert_ibm_returned_result_to_dictionary import convert_ibm_returned_result_to_dictionary
 from shot_count_from_dict_of_results import shot_count_from_dict_of_results
 from shot_count_from_results import shot_count_from_results
+from process_dictionary import process_dictionary
 
 IBMQ.load_account()
 provider = IBMQ.get_provider(hub='ibm-q-community', group='hackathon', project='tokyo-nov-2019')
@@ -67,8 +68,11 @@ print("complete!")
 result = job.result()
 result_dict = convert_ibm_returned_result_to_dictionary(result)
 
-print("shot_count:", str(shot_count_from_dict_of_results(result_dict)))
-
-#print("result_dict:", result_dict)
-    
+print("result_dict:", result_dict)
+vals_for_all_x_basis = process_dictionary("all_x_basis", result_dict)
+print("for all x basis:", vals_for_all_x_basis)
+vals_for_all_y_basis = process_dictionary("all_y_basis", result_dict)
+print("for all y basis:", vals_for_all_y_basis)
+vals_for_all_z_basis = process_dictionary("all_z_basis", result_dict)
+print("for all z basis:", vals_for_all_z_basis)
     
