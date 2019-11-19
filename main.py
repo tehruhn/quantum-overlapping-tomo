@@ -10,10 +10,9 @@ import time
 from create_ghz_circuit import create_ghz_circuit
 from create_qot_circuits import create_qot_circuits
 from convert_ibm_returned_result_to_dictionary import convert_ibm_returned_result_to_dictionary
-from process_dictionary import process_dictionary_xx_yy_zz, process_dictionary_ix_iy_iz
+from process_dictionary import process_dictionary_xx_yy_zz, process_dictionary_ix_iy_iz, process_dictionary_xy12
 from shot_count_from_dict_of_results import shot_count_from_dict_of_results
 from shot_count_from_results import shot_count_from_results
-from process_dictionary import process_dictionary
 
 IBMQ.load_account()
 provider = IBMQ.get_provider(hub='ibm-q-community', group='hackathon', project='tokyo-nov-2019')
@@ -71,16 +70,19 @@ result_dict = convert_ibm_returned_result_to_dictionary(result)
 
 print("result_dict:", result_dict)
 
-vals_for_all_x_basis = process_dictionary_xx_yy_zz("all_x_basis", result_dict)
-print("for all x basis:", vals_for_all_x_basis)
-vals_for_all_y_basis = process_dictionary_xx_yy_zz("all_y_basis", result_dict)
-print("for all y basis:", vals_for_all_y_basis)
-vals_for_all_z_basis = process_dictionary_xx_yy_zz("all_z_basis", result_dict)
-print("for all z basis:", vals_for_all_z_basis)
+# vals_for_all_x_basis = process_dictionary_xx_yy_zz("all_x_basis", result_dict)
+# print("for all x basis:", vals_for_all_x_basis)
+# vals_for_all_y_basis = process_dictionary_xx_yy_zz("all_y_basis", result_dict)
+# print("for all y basis:", vals_for_all_y_basis)
+# vals_for_all_z_basis = process_dictionary_xx_yy_zz("all_z_basis", result_dict)
+# print("for all z basis:", vals_for_all_z_basis)
 
-vals_for_all_x_basis1 = process_dictionary_ix_iy_iz("all_x_basis", result_dict)
-print("for all x basis:", vals_for_all_x_basis1)
-vals_for_all_y_basis1 = process_dictionary_ix_iy_iz("all_y_basis", result_dict)
-print("for all y basis:", vals_for_all_y_basis1)
-vals_for_all_z_basis1 = process_dictionary_ix_iy_iz("all_z_basis", result_dict)
-print("for all z basis:", vals_for_all_z_basis1)
+# vals_for_all_x_basis1 = process_dictionary_ix_iy_iz("all_x_basis", result_dict)
+# print("for all ix basis:", vals_for_all_x_basis1)
+# vals_for_all_y_basis1 = process_dictionary_ix_iy_iz("all_y_basis", result_dict)
+# print("for all iy basis:", vals_for_all_y_basis1)
+# vals_for_all_z_basis1 = process_dictionary_ix_iy_iz("all_z_basis", result_dict)
+# print("for all iz basis:", vals_for_all_z_basis1)
+
+vals_for_xy12 = process_dictionary_xy12(n, result_dict, hash_functions);
+print(vals_for_xy12)
