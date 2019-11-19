@@ -9,6 +9,7 @@ import time
 # custom imports 
 from create_ghz_circuit import create_ghz_circuit
 from create_qot_circuits import create_qot_circuits
+from convert_ibm_returned_result_to_dictionary import convert_ibm_returned_result_to_dictionary
 
 IBMQ.load_account()
 provider = IBMQ.get_provider(hub='ibm-q-community', group='hackathon', project='tokyo-nov-2019')
@@ -16,17 +17,6 @@ provider = IBMQ.get_provider(hub='ibm-q-community', group='hackathon', project='
 list_of_backends = provider.backends()
 print('\nYou have access to:')
 print(list_of_backends)
-
-def convert_ibm_returned_result_to_dictionary(returned_result, circuit_names, results_dict):
-    for name in circuit_names:
-        contains_name = False
-        for result in returned_result.results:
-            if getattr(getattr(result, 'header', None),'name', '') == name:
-                contains_name = True
-                break
-        if contains_name == True:
-            results_dict[name] = returned_result.get_counts(name)
-    return results_dict
 
 # number of qubits   
 n = 4
@@ -73,6 +63,8 @@ while not complete:
 print("complete!")        
 
 result = job.result()
-print("result[0]:", str(result))
+result_dict = convert_ibm_returned_result_to_dictionary(result)
+
+print("result_dict:", result_dict)
     
     
