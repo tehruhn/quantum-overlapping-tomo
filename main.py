@@ -68,6 +68,10 @@ result_dict = convert_ibm_returned_result_to_dictionary(result)
 
 print("result_dict:", result_dict)
 vals_for_all_x_basis = process_dictionary("all_x_basis", result_dict)
-print("vector is:", vals_for_all_x_basis)
+print("for all x basis:", vals_for_all_x_basis)
+vals_for_all_y_basis = process_dictionary("all_y_basis", result_dict)
+print("for all y basis:", vals_for_all_y_basis)
+vals_for_all_z_basis = process_dictionary("all_z_basis", result_dict)
+print("for all z basis:", vals_for_all_z_basis)
 
     
