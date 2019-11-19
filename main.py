@@ -11,6 +11,9 @@ from create_ghz_circuit import create_ghz_circuit
 from create_qot_circuits import create_qot_circuits
 from convert_ibm_returned_result_to_dictionary import convert_ibm_returned_result_to_dictionary
 from process_dictionary import process_dictionary_xx_yy_zz, process_dictionary_ix_iy_iz
+from shot_count_from_dict_of_results import shot_count_from_dict_of_results
+from shot_count_from_results import shot_count_from_results
+from process_dictionary import process_dictionary
 
 IBMQ.load_account()
 provider = IBMQ.get_provider(hub='ibm-q-community', group='hackathon', project='tokyo-nov-2019')
@@ -81,4 +84,3 @@ vals_for_all_y_basis1 = process_dictionary_ix_iy_iz("all_y_basis", result_dict)
 print("for all y basis:", vals_for_all_y_basis1)
 vals_for_all_z_basis1 = process_dictionary_ix_iy_iz("all_z_basis", result_dict)
 print("for all z basis:", vals_for_all_z_basis1)
-    
