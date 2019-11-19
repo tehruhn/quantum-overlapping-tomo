@@ -65,7 +65,7 @@ while not complete:
     if job.status() in JOB_FINAL_STATES:
         complete = True
     else:
-        time.sleep(3)
+        time.sleep(30)
         print("computing...")
 print("complete!")        
 
@@ -76,7 +76,7 @@ density_matrix = []
 size = (n*(n-1))/2
 ones = []
 for i in range(int(size)):
-	ones.append(1)
+	ones.append(1/4)
 
 density_matrix.append(ones)
 density_matrix.append(process_dictionary.process_dictionary_ix_iy_iz("all_x_basis", result_dict))
@@ -100,13 +100,22 @@ dm = [[m[j][i] for j in range(len(m))] for i in range(len(m[0]))]
 # print("------")
 # print(process_dictionary.process_dictionary_xx_yy_zz("all_x_basis", result_dict))
 # print("------")
-# print(dm)
-# print(reshape_vec_to_mat(dm[0]))
-# print("------")
+print(result_dict["all_x_basis"])
 for i in range(len(dm)):
-	print(Negativity(MatrixGeneratingFunction(reshape_vec_to_mat(dm[i]))))
+	mat = MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))
+	# print(reshape_vec_to_mat(dm[0]))
+	print("------")
+	trc = 0
+	for i in range(len(mat)):
+		for j in range(len(mat)):
+			if i == j:
+				trc += mat.item(i,j)
 
-print(MatrixGeneratingFunction(np.matrix([[0,0,1,0],[0,1,1,0],[0,0,1,0],[1,0,0,0]])))
+	print(trc)
+for i in range(len(dm)):
+	print(Negativity(MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))))
+
+# print(Negativity(MatrixGeneratingFunction(np.matrix([[0,0,1,0],[0,1,1,0],[0,0,1,0],[1,0,0,0]]))))
 
 
 

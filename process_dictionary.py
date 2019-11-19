@@ -291,6 +291,7 @@ def process_dictionary_xz12(num_qubits, output, hash_functions):
 		first = i[0]
 		second = i[1]
 
+			
 		# finds hash function that splits differently
 		hnum = 0
 		for j in range(len(hash_functions)):

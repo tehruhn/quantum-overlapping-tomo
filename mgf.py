@@ -13,8 +13,8 @@ def MatrixGeneratingFunction(x):
         else:
             print("Argument in Sigma(_arg) is wrong.")
             return 0
-    r = 0
+    r = np.zeros((4,4))
     for i in range(0,4):
         for j in range(0,4):
-            r = r + x[i][j] * np.kron(Sigma(i), Sigma(j))
+            r = r + (x.item(i,j) * np.kron(Sigma(i), Sigma(j)))
     return r
