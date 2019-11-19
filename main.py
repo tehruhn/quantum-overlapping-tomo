@@ -1,15 +1,32 @@
 import qiskit
-from qiskit import IBMQ
+from qiskit import IBMQ, execute
 from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister
+from qiskit.providers.jobstatus import JobStatus, JOB_FINAL_STATES
 from math import log2, ceil
 from copy import deepcopy
+import time
 
 # custom imports 
 from create_ghz_circuit import create_ghz_circuit
 from create_qot_circuits import create_qot_circuits
 
-# IBMQ.load_account()
-# provider = IBMQ.get_provider(hub='ibm-q-community', group='hackathon', project='tokyo-nov-2019')
+IBMQ.load_account()
+provider = IBMQ.get_provider(hub='ibm-q-community', group='hackathon', project='tokyo-nov-2019')
+
+list_of_backends = provider.backends()
+print('\nYou have access to:')
+print(list_of_backends)
+
+def convert_ibm_returned_result_to_dictionary(returned_result, circuit_names, results_dict):
+    for name in circuit_names:
+        contains_name = False
+        for result in returned_result.results:
+            if getattr(getattr(result, 'header', None),'name', '') == name:
+                contains_name = True
+                break
+        if contains_name == True:
+            results_dict[name] = returned_result.get_counts(name)
+    return results_dict
 
 # number of qubits   
 n = 4
@@ -38,11 +55,24 @@ for i in range(num_func):
         else:
             temp_list.append(0)
     hash_functions.append(temp_list)
-
+print("hash_functions:", str(hash_functions))
 circuit_list = create_qot_circuits(quantum_circuit, hash_functions, k)
 
-print(circuit_list)
+simulator_name = 'ibmq_qasm_simulator'
+backend = provider.get_backend(simulator_name)
+job = execute(circuit_list, backend=backend)
 
+complete = False
+status = job.status()
+while not complete:
+    if job.status() in JOB_FINAL_STATES:
+        complete = True
+    else:
+        time.sleep(3)
+        print("computing...")
+print("complete!")        
 
+result = job.result()
+print("result[0]:", str(result))
     
     
