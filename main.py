@@ -18,6 +18,7 @@ from reshape_vec_to_mat import reshape_vec_to_mat
 from mgf import MatrixGeneratingFunction
 from negativity import Negativity
 from simple_circuit import simple_circuit
+from negativity import Negativity, negativity_2
 
 IBMQ.load_account()
 provider = IBMQ.get_provider(hub='ibm-q-community', group='hackathon', project='tokyo-nov-2019')
@@ -127,7 +128,7 @@ print("--------")
 print(process_dictionary.process_dictionary_xz12(n, result_dict, hash_functions))
 print("--------")
 for i in range(len(dm)):
-	print(Negativity(MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))))
+	print(negativity_2(MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))))
 
 print("--------")
 print(MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[0]))))
