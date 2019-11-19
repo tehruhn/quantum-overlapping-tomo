@@ -29,7 +29,11 @@ def create_qot_circuits(quantum_circuit, hash_functions, k=2):
     # step 2 in the paper
 
     name = ""
-    circuit_grid = []
+    circuit_list = []
+    circuit_list.append(qcx)
+    circuit_list.append(qcy)
+    circuit_list.append(qcz)
+
     # for each hash function
     # naming convention
     # hashfnnumber_measrurementnber
@@ -92,13 +96,11 @@ def create_qot_circuits(quantum_circuit, hash_functions, k=2):
         m6.measure(range(qubit_count), range(qubit_count))
         m6.name = thisname + "5"
 
-        temp_list.append(m1)
-        temp_list.append(m2)
-        temp_list.append(m3)
-        temp_list.append(m4)
-        temp_list.append(m5)
-        temp_list.append(m6)
+        circuit_list.append(m1)
+        circuit_list.append(m2)
+        circuit_list.append(m3)
+        circuit_list.append(m4)
+        circuit_list.append(m5)
+        circuit_list.append(m6)
 
-        circuit_grid.append(temp_list)
-
-    return qcx, qcy, qcz, circuit_grid
+    return circuit_list

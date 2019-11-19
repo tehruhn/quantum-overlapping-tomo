@@ -39,10 +39,9 @@ for i in range(num_func):
             temp_list.append(0)
     hash_functions.append(temp_list)
 
-# print(hash_functions)
+circuit_list = create_qot_circuits(quantum_circuit, hash_functions, k)
 
-a, b, c, d = create_qot_circuits(quantum_circuit, hash_functions, k)
-
+print(circuit_list)
 
 
     
