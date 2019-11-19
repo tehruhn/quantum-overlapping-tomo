@@ -16,7 +16,7 @@ from shot_count_from_dict_of_results import shot_count_from_dict_of_results
 from shot_count_from_results import shot_count_from_results
 from reshape_vec_to_mat import reshape_vec_to_mat
 from mgf import MatrixGeneratingFunction
-from negativity import Negativity
+from negativity import Negativity, negativity_2
 
 IBMQ.load_account()
 provider = IBMQ.get_provider(hub='ibm-q-community', group='hackathon', project='tokyo-nov-2019')
@@ -113,7 +113,7 @@ for i in range(len(dm)):
 
 	print(trc)
 for i in range(len(dm)):
-	print(Negativity(MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))))
+	print(negativity_2(MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))))
 
 # print(Negativity(MatrixGeneratingFunction(np.matrix([[0,0,1,0],[0,1,1,0],[0,0,1,0],[1,0,0,0]]))))
 
