@@ -1,7 +1,7 @@
 import qiskit
 from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister
 
-def create_ghz_circuit(edges):
+def create_graph_circuit(edges):
     unique_qubits = []
     for edge in edges:
         if edge[0] not in unique_qubits:
