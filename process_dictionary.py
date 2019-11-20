@@ -1,6 +1,7 @@
 import itertools
 import re
 from calculate_s import calculate_s
+from shot_count_from_results import shot_count_from_results
    
 def process_dictionary_xx_yy_zz(circuit_name, output):
     dictionary = output[circuit_name]
@@ -60,7 +61,7 @@ def process_dictionary_xx_yy_zz(circuit_name, output):
         # new method
         #total = calculate_s(dictionary, i, bases)
         
-        total = (s1 - s2 - s3 + s4)/1024
+        total = (s1 - s2 - s3 + s4)/shot_count_from_results(dictionary)
         # print(s1, s2, s3, s4)
         answer.append(total)
 
@@ -127,9 +128,9 @@ def process_dictionary_ix_iy_iz(circuit_name, output):
             else:
                 bases.append('I')
         # new method
-        #total = calculate_s(dictionary, i, bases)
+        total = calculate_s(dictionary, i, bases)
         
-        total = -(s4 + s2 - s3 - s1)/1024
+        #total = (s4 + s2 - s3 - s1)/shot_count_from_results(dictionary)
         
         # print(s1, s2, s3, s4)
         answer.append(total)
@@ -197,7 +198,7 @@ def process_dictionary_xi_yi_zi(circuit_name, output):
                 bases.append('I')
         total = calculate_s(dictionary, i, bases)
         #print("new_method:", str(total))
-        total = (s4 + s3 - s2 - s1)/1024
+        #total = (s4 + s3 - s2 - s1)/shot_count_from_results(dictionary)
         #print("old_method:", str(total))
         # print(s1, s2, s3, s4)
         answer.append(total)
@@ -268,7 +269,7 @@ def process_dictionary_xy12(num_qubits, output, hash_functions):
                 bases.append('I')
         total = calculate_s(dictionary, i, bases)
         #print("new_method:", str(total))
-        total = (s4 + s2 - s3 - s1)/1024
+        #total = (s4 + s2 - s3 - s1)/shot_count_from_results(dictionary)
         #print("old_method:", str(total))
         # print(s1, s2, s3, s4)
         answer.append(total)
@@ -338,7 +339,7 @@ def process_dictionary_yx12(num_qubits, output, hash_functions):
                 bases.append('I')
         total = calculate_s(dictionary, i, bases)
         #print("new_method:", str(total))
-        total = (s4 + s2 - s3 - s1)/1024
+        #total = (s4 + s2 - s3 - s1)/shot_count_from_results(dictionary)
         #print("old_method:", str(total))
         # print(s1, s2, s3, s4)
         answer.append(total)
@@ -408,7 +409,7 @@ def process_dictionary_xz12(num_qubits, output, hash_functions):
                 bases.append('I')
         total = calculate_s(dictionary, i, bases)
         #print("new_method:", str(total))
-        total = (s4 + s2 - s3 - s1)/1024
+        #total = (s4 + s2 - s3 - s1)/shot_count_from_results(dictionary)
         #print("old_method:", str(total))
         # print(s1, s2, s3, s4)
         answer.append(total)
@@ -478,7 +479,7 @@ def process_dictionary_zx12(num_qubits, output, hash_functions):
                 bases.append('I')
         total = calculate_s(dictionary, i, bases)
         #print("new_method:", str(total))
-        total = (s4 + s2 - s3 - s1)/1024
+        #total = (s4 + s2 - s3 - s1)/shot_count_from_results(dictionary)
         #print("old_method:", str(total))
         # print(s1, s2, s3, s4)
         answer.append(total)
@@ -548,7 +549,7 @@ def process_dictionary_yz12(num_qubits, output, hash_functions):
                 bases.append('I')
         total = calculate_s(dictionary, i, bases)
         #print("new_method:", str(total))
-        total = (s4 + s2 - s3 - s1)/1024
+        #total = (s4 + s2 - s3 - s1)/shot_count_from_results(dictionary)
         #print("old_method:", str(total))
         # print(s1, s2, s3, s4)
         answer.append(total)
@@ -617,7 +618,7 @@ def process_dictionary_zy12(num_qubits, output, hash_functions):
                 bases.append('I')
         total = calculate_s(dictionary, i, bases)
         #print("new_method:", str(total))
-        total = (s4 + s2 - s3 - s1)/1024
+        #total = (s4 + s2 - s3 - s1)/shot_count_from_results(dictionary)
         #print("old_method:", str(total))
         # print(s1, s2, s3, s4)
         answer.append(total)
