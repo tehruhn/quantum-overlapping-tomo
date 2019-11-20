@@ -77,17 +77,21 @@ result = job.result()
 result_dict = convert_ibm_returned_result_to_dictionary(result)
 
 # make new dict with reversed keys
-new_dict = {}
-list_of_keys = list(result_dict.keys())
-for key in list_of_keys:
-	new_dict[key] = {}
-	temp_dict = result_dict[key]
-	l2_of_keys = list(temp_dict.keys())
-	for key2 in l2_of_keys:
-		new_dict[key]["".join(reversed(key2))] = temp_dict[key2]
+# new_dict = {}
+# list_of_keys = list(result_dict.keys())
+# for key in list_of_keys:
+# 	new_dict[key] = {}
+# 	temp_dict = result_dict[key]
+# 	l2_of_keys = list(temp_dict.keys())
+# 	for key2 in l2_of_keys:
+# 		new_dict[key]["".join(reversed(key2))] = temp_dict[key2]
+# print("------")
+# print(result_dict)
+# print("-----")
+# result_dict = new_dict
+# print(result_dict)
+# print("reversed IBM output")
 
-result_dict = new_dict
-print("reversed IBM output")
 
 density_matrix = []
 size = (n*(n-1))/2
@@ -106,7 +110,7 @@ density_matrix.append(process_dictionary.process_dictionary_xx_yy_zz("all_x_basi
 density_matrix.append(process_dictionary.process_dictionary_xx_yy_zz("all_y_basis", result_dict))
 density_matrix.append(process_dictionary.process_dictionary_xx_yy_zz("all_z_basis", result_dict))
 density_matrix.append(process_dictionary.process_dictionary_xy12(n, result_dict, hash_functions))
-density_matrix.append(process_dictionary.process_dictionary_yz12(n, result_dict, hash_functions))
+density_matrix.append(process_dictionary.process_dictionary_yx12(n, result_dict, hash_functions))
 density_matrix.append(process_dictionary.process_dictionary_xz12(n, result_dict, hash_functions))
 density_matrix.append(process_dictionary.process_dictionary_zx12(n, result_dict, hash_functions))
 density_matrix.append(process_dictionary.process_dictionary_yz12(n, result_dict, hash_functions))
@@ -114,35 +118,49 @@ density_matrix.append(process_dictionary.process_dictionary_zy12(n, result_dict,
 
 m = density_matrix
 dm = [[m[j][i] for j in range(len(m))] for i in range(len(m[0]))] 
-# print(result_dict["all_x_basis"])
+
+# print("XZ")
+# print(process_dictionary.process_dictionary_xz12(n, result_dict, hash_functions))
+print("------")
+print(process_dictionary.process_dictionary_xz12(n, result_dict, hash_functions))
+# print("XY")
+# print(process_dictionary.process_dictionary_xy12(n, result_dict, hash_functions))
+# print(result_dict["all_z_basis"])
+# print(process_dictionary.process_dictionary_xx_yy_zz("all_z_basis", result_dict))
+# print("------")
+# print(result_dict["all_z_basis"])
+# print("--------")
+# print(process_dictionary.process_dictionary_ix_iy_iz("all_z_basis", result_dict))
+# # print(result_dict["all_x_basis"])
+# print("--------")
+# print(process_dictionary.process_dictionary_xi_yi_zi("all_z_basis", result_dict))
+# print("--------")
+
+# print(process_dictionary.process_dictionary_ix_iy_iz("all_z_basis", result_dict))
+# print("--------")
+# print(process_dictionary.process_dictionary_xi_yi_zi("all_z_basis", result_dict))
 # print("--------")
 # print(process_dictionary.process_dictionary_xx_yy_zz("all_z_basis", result_dict))
 # print("--------")
+# print(process_dictionary.process_dictionary_xz12(n, result_dict, hash_functions))
+# print("--------")
+# for i in range(len(dm)):
+# 	print(negativity_2(MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))))
 
-print(process_dictionary.process_dictionary_ix_iy_iz("all_z_basis", result_dict))
-print("--------")
-print(process_dictionary.process_dictionary_xi_yi_zi("all_z_basis", result_dict))
-print("--------")
-print(process_dictionary.process_dictionary_xx_yy_zz("all_z_basis", result_dict))
-print("--------")
-print(process_dictionary.process_dictionary_xz12(n, result_dict, hash_functions))
-print("--------")
-for i in range(len(dm)):
-	print(negativity_2(MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))))
+# print("--------")
+# print(MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[0]))))
 
-print("--------")
-print(MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[0]))))
+# print("--------")
+# for i in range(len(dm)):
+# 	print(MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[0]))))
 
-print("--------")
-print(reshape_vec_to_mat(dm[5]))
-
-for i in range(len(dm)):
-	mat = MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))
-	total = 0;
-	for j in range(mat.shape[0]):
-		for k in range(mat.shape[1]):
-			if j == k:
-				total += mat.item(j,k)
-	print(total)
+# for i in range(len(dm)):
+# 	mat = MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))
+# 	total = 0;
+# 	for j in range(mat.shape[0]):
+# 		for k in range(mat.shape[1]):
+# 			if j == k:
+# 				total += mat.item(j,k)
+# 	print(total)
 
 
