@@ -302,6 +302,16 @@ def process_dictionary_xz12(num_qubits, output, hash_functions):
 		circuit_name = str(hnum) + "_2"
 		# print(circuit_name)
 		dictionary = output[circuit_name]
+		# print(dictionary)
+		# print(first, second)
+		# print(hash_functions[hnum][first], hash_functions[hnum][second])
+		# print("this was it")
+		# if first==0 and second==1:
+		# 	print(circuit_name)
+		# 	print(dictionary)
+		# if first==2 and second==3:
+		# 	print(circuit_name)
+		# 	print(dictionary)
 		list_of_keys = list(dictionary.keys())
 		# fix 00 and sum
 		zz = []
@@ -420,6 +430,8 @@ def process_dictionary_yz12(num_qubits, output, hash_functions):
 		circuit_name = str(hnum) + "_4"
 		# print(circuit_name)
 		dictionary = output[circuit_name]
+		# if first ==2 and second ==3:
+			# print(dictionary)
 		list_of_keys = list(dictionary.keys())
 		# fix 00 and sum
 		zz = []

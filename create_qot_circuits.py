@@ -44,10 +44,10 @@ def create_qot_circuits(quantum_circuit, hash_functions, k=2):
         m1 = deepcopy(quantum_circuit)
         for j in range(qubit_count):
             if hash_functions[i][j]:
-                m1.sdg(i)
-                m1.h(i)
+                m1.sdg(j)
+                m1.h(j)
             else:
-                m1.h(i)
+                m1.h(j)
         m1.measure(range(qubit_count), range(qubit_count))
         m1.name = thisname + "0"
 
@@ -55,10 +55,10 @@ def create_qot_circuits(quantum_circuit, hash_functions, k=2):
         m2 = deepcopy(quantum_circuit)
         for j in range(qubit_count):
             if hash_functions[i][j]:
-                m2.h(i)
+                m2.h(j)
             else:
-                m2.sdg(i)
-                m2.h(i)
+                m2.sdg(j)
+                m2.h(j)
         m2.measure(range(qubit_count), range(qubit_count))
         m2.name = thisname + "1"
 
@@ -66,7 +66,7 @@ def create_qot_circuits(quantum_circuit, hash_functions, k=2):
         m3 = deepcopy(quantum_circuit)
         for j in range(qubit_count):
             if hash_functions[i][j] == 0:
-                m3.h(i)
+                m3.h(j)
         m3.measure(range(qubit_count), range(qubit_count))
         m3.name = thisname + "2"
 
@@ -74,7 +74,7 @@ def create_qot_circuits(quantum_circuit, hash_functions, k=2):
         m4 = deepcopy(quantum_circuit)
         for j in range(qubit_count):
             if hash_functions[i][j]:
-                m4.h(i)
+                m4.h(j)
         m4.measure(range(qubit_count), range(qubit_count))
         m4.name = thisname + "3"
 
@@ -82,8 +82,8 @@ def create_qot_circuits(quantum_circuit, hash_functions, k=2):
         m5 = deepcopy(quantum_circuit)
         for j in range(qubit_count):
             if hash_functions[i][j] == 0:
-                m5.sdg(i)
-                m5.h(i)
+                m5.sdg(j)
+                m5.h(j)
         m5.measure(range(qubit_count), range(qubit_count))
         m5.name = thisname + "4"
 
@@ -91,8 +91,8 @@ def create_qot_circuits(quantum_circuit, hash_functions, k=2):
         m6 = deepcopy(quantum_circuit)
         for j in range(qubit_count):
             if hash_functions[i][j]:
-                m6.sdg(i)
-                m6.h(i)
+                m6.sdg(j)
+                m6.h(j)
         m6.measure(range(qubit_count), range(qubit_count))
         m6.name = thisname + "5"
 

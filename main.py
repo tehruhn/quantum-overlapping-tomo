@@ -1,5 +1,5 @@
 import qiskit
-from qiskit import IBMQ, execute
+from qiskit import IBMQ, execute, Aer
 from qiskit import QuantumCircuit, ClassicalRegister, QuantumRegister
 from qiskit.providers.jobstatus import JobStatus, JOB_FINAL_STATES
 from math import log2, ceil
@@ -59,8 +59,9 @@ for i in range(num_func):
 print("hash_functions:", str(hash_functions))
 circuit_list = create_qot_circuits(quantum_circuit, hash_functions, k)
 
-simulator_name = 'ibmq_qasm_simulator'
-backend = provider.get_backend(simulator_name)
+simulator_name = 'qasm_simulator'
+# backend = provider.get_backend(simulator_name)
+backend = Aer.get_backend(simulator_name)
 job = execute(circuit_list, backend=backend)
 
 complete = False
@@ -80,11 +81,11 @@ result_dict = convert_ibm_returned_result_to_dictionary(result)
 # new_dict = {}
 # list_of_keys = list(result_dict.keys())
 # for key in list_of_keys:
-# 	new_dict[key] = {}
-# 	temp_dict = result_dict[key]
-# 	l2_of_keys = list(temp_dict.keys())
-# 	for key2 in l2_of_keys:
-# 		new_dict[key]["".join(reversed(key2))] = temp_dict[key2]
+#   new_dict[key] = {}
+#   temp_dict = result_dict[key]
+#   l2_of_keys = list(temp_dict.keys())
+#   for key2 in l2_of_keys:
+#       new_dict[key]["".join(reversed(key2))] = temp_dict[key2]
 # print("------")
 # print(result_dict)
 # print("-----")
@@ -97,7 +98,7 @@ density_matrix = []
 size = (n*(n-1))/2
 ones = []
 for i in range(int(size)):
-	ones.append(1)
+    ones.append(1)
 
 density_matrix.append(ones)
 density_matrix.append(process_dictionary.process_dictionary_ix_iy_iz("all_x_basis", result_dict))
@@ -121,8 +122,8 @@ dm = [[m[j][i] for j in range(len(m))] for i in range(len(m[0]))]
 
 # print("XZ")
 # print(process_dictionary.process_dictionary_xz12(n, result_dict, hash_functions))
-print("------")
-print(process_dictionary.process_dictionary_xz12(n, result_dict, hash_functions))
+# print("------")
+# print(process_dictionary.process_dictionary_xz12(n, result_dict, hash_functions))
 # print("XY")
 # print(process_dictionary.process_dictionary_xy12(n, result_dict, hash_functions))
 # print(result_dict["all_z_basis"])
@@ -145,22 +146,24 @@ print(process_dictionary.process_dictionary_xz12(n, result_dict, hash_functions)
 # print(process_dictionary.process_dictionary_xz12(n, result_dict, hash_functions))
 # print("--------")
 # for i in range(len(dm)):
-# 	print(negativity_2(MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))))
+#   print(negativity_2(MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))))
 
 # print("--------")
 # print(MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[0]))))
 
 # print("--------")
-# for i in range(len(dm)):
-# 	print(MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[0]))))
+for i in range(len(dm)):
+    print(MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i]))))
+    print(Negativity(MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))))
+    print()
 
 # for i in range(len(dm)):
-# 	mat = MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))
-# 	total = 0;
-# 	for j in range(mat.shape[0]):
-# 		for k in range(mat.shape[1]):
-# 			if j == k:
-# 				total += mat.item(j,k)
-# 	print(total)
+#   mat = MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))
+#   total = 0;
+#   for j in range(mat.shape[0]):
+#       for k in range(mat.shape[1]):
+#           if j == k:
+#               total += mat.item(j,k)
+#   print(total)
 
 
