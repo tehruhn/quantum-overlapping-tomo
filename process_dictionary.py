@@ -67,46 +67,64 @@ def process_dictionary_ix_iy_iz(circuit_name, output):
 	list_of_nums = list(range(num_qubits))
 	answer = []
 	for i in itertools.combinations(list_of_nums, 2):
-		# find two indices to fix
+		# # find two indices to fix
+		# first = i[0]
+		# second = i[1]
+		# # fix 00 and sum
+		# zz = []
+		# s1 = 0
+		# for j in list_of_keys:
+		# 	if j[first] == "0" and j[second] == "0":
+		# 		zz.append(j)
+		# for k in zz:
+		# 	s1 += dictionary[k]
+		# # fix 01 and sum 
+		# zo = []
+		# s2 = 0
+		# for j in list_of_keys:
+		# 	if j[first] == "0" and j[second] == "1":
+		# 		zo.append(j)
+		# for k in zo:
+		# 	s2 += dictionary[k]
+
+		# # fix 10 and sum
+		# oz = []
+		# s3 = 0
+		# for j in list_of_keys:
+		# 	if j[first] == "1" and j[second] == "0":
+		# 		oz.append(j)
+		# for k in oz:
+		# 	s3 += dictionary[k]
+
+		# # fix 11 and sum
+		# oo = []
+		# s4 = 0
+		# for j in list_of_keys:
+		# 	if j[first] == "1" and j[second] == "1":
+		# 		oo.append(j)
+		# for k in oo:
+		# 	s4 += dictionary[k]
+
+		# total = (s4 + s2 - s3 - s1)/8192
+		# # print(s1, s2, s3, s4)
 		first = i[0]
 		second = i[1]
-		# fix 00 and sum
-		zz = []
+		s0 = 0
+		zero = []
+		for j in list_of_keys:
+			if j[second] == "0":
+				zero.append(j)
+		for k in zero:
+			s0 += dictionary[k]
+
 		s1 = 0
+		one = []
 		for j in list_of_keys:
-			if j[first] == "0" and j[second] == "0":
-				zz.append(j)
-		for k in zz:
+			if j[second] == "1":
+				one.append(j)
+		for k in one:
 			s1 += dictionary[k]
-		# fix 01 and sum 
-		zo = []
-		s2 = 0
-		for j in list_of_keys:
-			if j[first] == "0" and j[second] == "1":
-				zo.append(j)
-		for k in zo:
-			s2 += dictionary[k]
-
-		# fix 10 and sum
-		oz = []
-		s3 = 0
-		for j in list_of_keys:
-			if j[first] == "1" and j[second] == "0":
-				oz.append(j)
-		for k in oz:
-			s3 += dictionary[k]
-
-		# fix 11 and sum
-		oo = []
-		s4 = 0
-		for j in list_of_keys:
-			if j[first] == "1" and j[second] == "1":
-				oo.append(j)
-		for k in oo:
-			s4 += dictionary[k]
-
-		total = (s4 + s2 - s3 - s1)/8192
-		# print(s1, s2, s3, s4)
+		total = (s1 - s0)/8192
 		answer.append(total)
 
 	return answer
