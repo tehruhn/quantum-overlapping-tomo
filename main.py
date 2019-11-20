@@ -38,8 +38,8 @@ edges = []
 for i in range(n-1):
     edges.append([i,i+1])
 
-# quantum_circuit = simple_circuit()
-quantum_circuit = create_ghz_circuit(edges)
+quantum_circuit = simple_circuit()
+# quantum_circuit = create_ghz_circuit(edges)
 
 # global hash function    
 hash_functions = []
@@ -62,7 +62,7 @@ circuit_list = create_qot_circuits(quantum_circuit, hash_functions, k)
 simulator_name = 'qasm_simulator'
 # backend = provider.get_backend(simulator_name)
 backend = Aer.get_backend(simulator_name)
-job = execute(circuit_list, backend=backend)
+job = execute(circuit_list, backend=backend, shots=8192)
 
 complete = False
 status = job.status()
@@ -119,14 +119,29 @@ density_matrix.append(process_dictionary.process_dictionary_zy12(n, result_dict,
 
 m = density_matrix
 dm = [[m[j][i] for j in range(len(m))] for i in range(len(m[0]))] 
+# print(len(dm), len(dm[0]))
 
 # print("XZ")
 # print(process_dictionary.process_dictionary_xz12(n, result_dict, hash_functions))
 # print("------")
 # print(process_dictionary.process_dictionary_xz12(n, result_dict, hash_functions))
+# print("------")
+# print(process_dictionary.process_dictionary_zx12(n, result_dict, hash_functions))
+# print("------")
+# print(process_dictionary.process_dictionary_xy12(n, result_dict, hash_functions))
+# print("------")
+# print(process_dictionary.process_dictionary_yx12(n, result_dict, hash_functions))
+# print("------")
+# print(process_dictionary.process_dictionary_yz12(n, result_dict, hash_functions))
+# print("------")
+# print(process_dictionary.process_dictionary_zy12(n, result_dict, hash_functions))
 # print("XY")
 # print(process_dictionary.process_dictionary_xy12(n, result_dict, hash_functions))
-# print(result_dict["all_z_basis"])
+# print(result_dict["all_x_basis"])
+print(process_dictionary.process_dictionary_xx_yy_zz("all_x_basis", result_dict))
+print("------")
+print(process_dictionary.process_dictionary_xx_yy_zz("all_y_basis", result_dict))
+# print("------")
 # print(process_dictionary.process_dictionary_xx_yy_zz("all_z_basis", result_dict))
 # print("------")
 # print(result_dict["all_z_basis"])
@@ -154,12 +169,11 @@ dm = [[m[j][i] for j in range(len(m))] for i in range(len(m[0]))]
 # print("--------")
 np.set_printoptions(linewidth=np.inf)
 
-for i in range(len(dm)):
-    mat = MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))
-    print(mat)
-
-    # print(Negativity(MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))))
-    print()
+# for i in range(len(dm)):
+#     mat = MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))
+#     print(mat)
+#     print(Negativity(mat))
+#     print()
 
 # for i in range(len(dm)):
 #   mat = MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))

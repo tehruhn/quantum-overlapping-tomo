@@ -49,7 +49,7 @@ def process_dictionary_xx_yy_zz(circuit_name, output):
 		for k in oo:
 			s4 += dictionary[k]
 
-		total = (s1 - s2 - s3 + s4)/1024
+		total = (s1 - s2 - s3 + s4)/8192
 		# print(s1, s2, s3, s4)
 		# print(s1)
 		answer.append(total)
@@ -105,7 +105,7 @@ def process_dictionary_ix_iy_iz(circuit_name, output):
 		for k in oo:
 			s4 += dictionary[k]
 
-		total = (s4 + s2 - s3 - s1)/1024
+		total = (s4 + s2 - s3 - s1)/8192
 		# print(s1, s2, s3, s4)
 		answer.append(total)
 
@@ -159,7 +159,7 @@ def process_dictionary_xi_yi_zi(circuit_name, output):
 		for k in oo:
 			s4 += dictionary[k]
 
-		total = (s4 + s2 - s3 - s1)/1024
+		total = (s4 + s2 - s3 - s1)/8192
 		# print(s1, s2, s3, s4)
 		answer.append(total)
 
@@ -218,7 +218,7 @@ def process_dictionary_xy12(num_qubits, output, hash_functions):
 		for k in oo:
 			s4 += dictionary[k]
 
-		total = (s4 + s1 - s3 - s2)/1024
+		total = (s4 + s1 - s3 - s2)/8192
 		# print(s1, s2, s3, s4)
 		answer.append(total)
 
@@ -277,7 +277,7 @@ def process_dictionary_yx12(num_qubits, output, hash_functions):
 		for k in oo:
 			s4 += dictionary[k]
 
-		total = (s4 + s1 - s3 - s2)/1024
+		total = (s4 + s1 - s3 - s2)/8192
 		# print(s1, s2, s3, s4)
 		answer.append(total)
 
@@ -348,7 +348,7 @@ def process_dictionary_xz12(num_qubits, output, hash_functions):
 		for k in oo:
 			s4 += dictionary[k]
 
-		total = (s4 + s1 - s3 - s2)/1024
+		total = (s4 + s1 - s3 - s2)/8192
 		# print(s1, s2, s3, s4)
 		answer.append(total)
 
@@ -407,7 +407,7 @@ def process_dictionary_zx12(num_qubits, output, hash_functions):
 		for k in oo:
 			s4 += dictionary[k]
 
-		total = (s4 + s1 - s3 - s2)/1024
+		total = (s4 + s1 - s3 - s2)/8192
 		# print(s1, s2, s3, s4)
 		answer.append(total)
 
@@ -468,7 +468,7 @@ def process_dictionary_yz12(num_qubits, output, hash_functions):
 		for k in oo:
 			s4 += dictionary[k]
 
-		total = (s4 + s1 - s3 - s2)/1024
+		total = (s4 + s1 - s3 - s2)/8192
 		# print(s1, s2, s3, s4)
 		answer.append(total)
 
@@ -527,7 +527,7 @@ def process_dictionary_zy12(num_qubits, output, hash_functions):
 		for k in oo:
 			s4 += dictionary[k]
 
-		total = (s4 + s1 - s3 - s2)/1024
+		total = (s4 + s1 - s3 - s2)/8192
 		# print(s1, s2, s3, s4)
 		answer.append(total)
 
