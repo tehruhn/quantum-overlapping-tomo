@@ -38,8 +38,8 @@ edges = []
 for i in range(n-1):
     edges.append([i,i+1])
 
-quantum_circuit = simple_circuit()
-# quantum_circuit = create_ghz_circuit(edges)
+# quantum_circuit = simple_circuit()
+quantum_circuit = create_ghz_circuit(edges)
 
 # global hash function    
 hash_functions = []
@@ -152,9 +152,13 @@ dm = [[m[j][i] for j in range(len(m))] for i in range(len(m[0]))]
 # print(MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[0]))))
 
 # print("--------")
+np.set_printoptions(linewidth=np.inf)
+
 for i in range(len(dm)):
-    print(MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i]))))
-    print(Negativity(MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))))
+    mat = MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))
+    print(mat)
+
+    # print(Negativity(MatrixGeneratingFunction(np.matrix(reshape_vec_to_mat(dm[i])))))
     print()
 
 # for i in range(len(dm)):
