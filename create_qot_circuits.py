@@ -26,6 +26,10 @@ def create_qot_circuits(quantum_circuit, hash_functions, k=2):
     # measure in the z-basis
     qcz.measure(range(qubit_count), range(qubit_count))
 
+    # print(qcx)
+    # print(qcy)
+    # print(qcz)
+    
     # step 2 in the paper
 
     name = ""

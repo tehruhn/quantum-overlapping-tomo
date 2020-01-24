@@ -1,6 +1,12 @@
 import itertools
 import re
 
+
+# XXYYZZ
+# IXIYIZ
+# ALL Z - XIYIZI (WRONG)
+
+
 def process_dictionary_xx_yy_zz(circuit_name, output):
 	dictionary = output[circuit_name]
 	list_of_keys = list(dictionary.keys())
@@ -109,6 +115,7 @@ def process_dictionary_ix_iy_iz(circuit_name, output):
 		# # print(s1, s2, s3, s4)
 		first = i[0]
 		second = i[1]
+		# print(first, second)
 		s0 = 0
 		zero = []
 		for j in list_of_keys:
@@ -177,7 +184,7 @@ def process_dictionary_xi_yi_zi(circuit_name, output):
 		for k in oo:
 			s4 += dictionary[k]
 
-		total = (s4 + s2 - s3 - s1)/8192
+		total = (s4 + s3 - s2 - s1)/8192
 		# print(s1, s2, s3, s4)
 		answer.append(total)
 

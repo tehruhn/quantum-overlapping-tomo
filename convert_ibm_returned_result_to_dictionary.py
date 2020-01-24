@@ -1,5 +1,6 @@
 def convert_ibm_returned_result_to_dictionary(returned_result):
     results_dict = {}
+    # print(returned_result)
     names = []
     for result in returned_result.results:
         temp_name = getattr(getattr(result, 'header', None),'name', '')
