@@ -19,6 +19,7 @@ from reshape_vec_to_mat import reshape_vec_to_mat
 from mgf import MatrixGeneratingFunction
 from negativity import Negativity
 from simple_circuit import simple_circuit
+from simple_graphstate_circuit import simple_graphstate_circuit
 from negativity import Negativity, negativity_2
 from make_density_matrix_physical import make_density_matrix_physical
 
@@ -44,6 +45,7 @@ print("edges:", edges)
 
 #quantum_circuit = simple_circuit()
 quantum_circuit = create_graphstate_circuit(edges)
+#quantum_circuit = simple_graphstate_circuit()
 print(str(quantum_circuit))
 
 # global hash function    
@@ -159,22 +161,22 @@ list_of_nums = list(range(num_qubits))
 combinations = list(itertools.combinations(list_of_nums, 2))
 print("combinations:", combinations)
 for i in range(len(combinations)):
-    calculated_density_matrix = pauli("II")/16
-    calculated_density_matrix += density_matrix[1][i] * pauli("IX")/16
-    calculated_density_matrix += density_matrix[2][i] * pauli("IY")/16
-    calculated_density_matrix += density_matrix[3][i] * pauli("IZ")/16
-    calculated_density_matrix += density_matrix[4][i] * pauli("XI")/16
-    calculated_density_matrix += density_matrix[5][i] * pauli("YI")/16
-    calculated_density_matrix += density_matrix[6][i] * pauli("ZI")/16
-    calculated_density_matrix += density_matrix[7][i] * pauli("XX")/16
-    calculated_density_matrix += density_matrix[8][i] * pauli("YY")/16
-    calculated_density_matrix += density_matrix[9][i] * pauli("ZZ")/16
-    calculated_density_matrix += density_matrix[10][i] * pauli("XY")/16
-    calculated_density_matrix += density_matrix[11][i] * pauli("YX")/16
-    calculated_density_matrix += density_matrix[12][i] * pauli("XZ")/16
-    calculated_density_matrix += density_matrix[13][i] * pauli("ZX")/16
-    calculated_density_matrix += density_matrix[14][i] * pauli("YZ")/16
-    calculated_density_matrix += density_matrix[15][i] * pauli("ZY")/16
+    calculated_density_matrix = pauli("II") / pow(k, 2)
+    calculated_density_matrix += density_matrix[1][i] * pauli("IX") / pow(k, 2)
+    calculated_density_matrix += density_matrix[2][i] * pauli("IY") / pow(k, 2)
+    calculated_density_matrix += density_matrix[3][i] * pauli("IZ") / pow(k, 2)
+    calculated_density_matrix += density_matrix[4][i] * pauli("XI") / pow(k, 2)
+    calculated_density_matrix += density_matrix[5][i] * pauli("YI") / pow(k, 2)
+    calculated_density_matrix += density_matrix[6][i] * pauli("ZI") / pow(k, 2)
+    calculated_density_matrix += density_matrix[7][i] * pauli("XX") / pow(k, 2)
+    calculated_density_matrix += density_matrix[8][i] * pauli("YY") / pow(k, 2)
+    calculated_density_matrix += density_matrix[9][i] * pauli("ZZ") / pow(k, 2)
+    calculated_density_matrix += density_matrix[10][i] * pauli("XY") / pow(k, 2)
+    calculated_density_matrix += density_matrix[11][i] * pauli("YX") / pow(k, 2)
+    calculated_density_matrix += density_matrix[12][i] * pauli("XZ") / pow(k, 2)
+    calculated_density_matrix += density_matrix[13][i] * pauli("ZX") / pow(k, 2)
+    calculated_density_matrix += density_matrix[14][i] * pauli("YZ") / pow(k, 2)
+    calculated_density_matrix += density_matrix[15][i] * pauli("ZY") / pow(k, 2)
     #calculated_density_matrix = make_density_matrix_physical(calculated_density_matrix)
     print(str(combinations[i]) + ":")
     print("negativity:", negativity_2(calculated_density_matrix))
