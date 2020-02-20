@@ -2,7 +2,7 @@ def calculate_s(data_counts, qubit_indices, pauli_bases):
     number_of_data_points = 0
     s = 0
     
-    print("qubit_indices", qubit_indices)
+    #print("qubit_indices", qubit_indices)
     #print("pauli_bases", pauli_bases)
     #print("data_counts", data_counts.items())
     
