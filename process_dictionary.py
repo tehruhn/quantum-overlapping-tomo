@@ -2,10 +2,16 @@ import itertools
 import re
 from calculate_s import calculate_s
 
+
+def get_number_of_measurements(result_dict):
+    number_of_data_points = 0
+    for key, value in result_dict.items():
+        number_of_data_points += value
+    return number_of_data_points
+
 # XXYYZZ
 # IXIYIZ
 # ALL Z - XIYIZI (WRONG)
-
 
 def process_dictionary_xx_yy_zz(circuit_name, output):
     dictionary = output[circuit_name]
@@ -16,10 +22,10 @@ def process_dictionary_xx_yy_zz(circuit_name, output):
     # list of numbers to iterate on
     list_of_nums = list(range(num_qubits))
     answer = []
-    for i in itertools.combinations(list_of_nums, 2):
+    for combination in itertools.combinations(list_of_nums, 2):
         # find two indices to fix
-        first = i[0]
-        second = i[1]
+        first = combination[0]
+        second = combination[1]
         # fix 00 and sum
         zz = []
         s1 = 0
@@ -55,21 +61,9 @@ def process_dictionary_xx_yy_zz(circuit_name, output):
         for k in oo:
             s4 += dictionary[k]
 
-        total = (s1 - s2 - s3 + s4)/8192
+        total = (s1 - s2 - s3 + s4) / get_number_of_measurements(dictionary)
         # print(s1, s2, s3, s4)
         # print(s1)
-        
-        ### new method
-        bases = []
-        qubit_count = len(list_of_keys[0])
-        for k in range(qubit_count):
-            if k in i:
-                bases.append('X')
-            else:
-                bases.append('I')
-        # new method
-        total = calculate_s(dictionary, i, bases)
-        ###
         
         answer.append(total)
 
@@ -85,7 +79,7 @@ def process_dictionary_ix_iy_iz(circuit_name, output):
     # list of numbers to iterate on
     list_of_nums = list(range(num_qubits))
     answer = []
-    for i in itertools.combinations(list_of_nums, 2):
+    for combination in itertools.combinations(list_of_nums, 2):
         # # find two indices to fix
         # first = i[0]
         # second = i[1]
@@ -126,8 +120,8 @@ def process_dictionary_ix_iy_iz(circuit_name, output):
 
         # total = (s4 + s2 - s3 - s1)/8192
         # # print(s1, s2, s3, s4)
-        first = i[0]
-        second = i[1]
+        first = combination[0]
+        second = combination[1]
         # print(first, second)
         s0 = 0
         zero = []
@@ -144,23 +138,8 @@ def process_dictionary_ix_iy_iz(circuit_name, output):
                 one.append(j)
         for k in one:
             s1 += dictionary[k]
-        total = (s1 - s0)/8192
+        total = (s1 - s0) / get_number_of_measurements(dictionary)
         
-        ### new method
-        bases = []
-        qubit_count = len(list_of_keys[0])
-        for k in range(qubit_count):
-            if k in i:
-                # is first element
-                if k == i[0]:
-                    bases.append('I')
-                else:
-                    bases.append('X')
-            else:
-                bases.append('I')
-        
-        total = calculate_s(dictionary, i, bases)
-        ###
         answer.append(total)
 
     return answer
@@ -174,10 +153,10 @@ def process_dictionary_xi_yi_zi(circuit_name, output):
     # list of numbers to iterate on
     list_of_nums = list(range(num_qubits))
     answer = []
-    for i in itertools.combinations(list_of_nums, 2):
+    for combination in itertools.combinations(list_of_nums, 2):
         # find two indices to fix
-        first = i[0]
-        second = i[1]
+        first = combination[0]
+        second = combination[1]
         # fix 00 and sum
         zz = []
         s1 = 0
@@ -213,24 +192,8 @@ def process_dictionary_xi_yi_zi(circuit_name, output):
         for k in oo:
             s4 += dictionary[k]
 
-        total = (s4 + s3 - s2 - s1)/8192
+        total = (s4 + s3 - s2 - s1) / get_number_of_measurements(dictionary)
         # print(s1, s2, s3, s4)
-        
-        ### new method
-        bases = []
-        qubit_count = len(list_of_keys[0])
-        for k in range(qubit_count):
-            if k in i:
-                # is first element
-                if k == i[1]:
-                    bases.append('I')
-                else:
-                    bases.append('X')
-            else:
-                bases.append('I')
-
-        total = calculate_s(dictionary, i, bases)
-        ###
         
         answer.append(total)
 
@@ -240,10 +203,10 @@ def process_dictionary_xy12(num_qubits, output, hash_functions):
     # list of numbers to iterate on
     list_of_nums = list(range(num_qubits))
     answer = []
-    for i in itertools.combinations(list_of_nums, 2):
+    for combination in itertools.combinations(list_of_nums, 2):
         # find two indices to fix
-        first = i[0]
-        second = i[1]
+        first = combination[0]
+        second = combination[1]
 
         # finds hash function that splits differently
         hnum = 0
@@ -289,24 +252,8 @@ def process_dictionary_xy12(num_qubits, output, hash_functions):
         for k in oo:
             s4 += dictionary[k]
 
-        total = (s4 + s1 - s3 - s2)/8192
+        total = (s4 + s1 - s3 - s2) / get_number_of_measurements(dictionary)
         # print(s1, s2, s3, s4)
-        
-        ### New method
-        bases = []
-        qubit_count = len(list_of_keys[0])
-        for k in range(qubit_count):
-            if k in i:
-                # is first element
-                if k == i[0]:
-                    bases.append('X')
-                if k == i[1]:
-                    bases.append('Y')
-            else:
-                bases.append('I')
-
-        total = calculate_s(dictionary, i, bases)
-        ###
         
         answer.append(total)
 
@@ -316,10 +263,10 @@ def process_dictionary_yx12(num_qubits, output, hash_functions):
     # list of numbers to iterate on
     list_of_nums = list(range(num_qubits))
     answer = []
-    for i in itertools.combinations(list_of_nums, 2):
+    for combination in itertools.combinations(list_of_nums, 2):
         # find two indices to fix
-        first = i[0]
-        second = i[1]
+        first = combination[0]
+        second = combination[1]
 
         # finds hash function that splits differently
         hnum = 0
@@ -365,19 +312,8 @@ def process_dictionary_yx12(num_qubits, output, hash_functions):
         for k in oo:
             s4 += dictionary[k]
 
-        total = (s4 + s1 - s3 - s2)/8192
+        total = (s4 + s1 - s3 - s2) / get_number_of_measurements(dictionary)
         # print(s1, s2, s3, s4)
-        
-        ### New Method
-        bases = []
-        qubit_count = len(list_of_keys[0])
-        for k in range(qubit_count):
-            if k in i:
-                bases.append('X')
-            else:
-                bases.append('I')
-        total = calculate_s(dictionary, i, bases)
-        ###
         
         answer.append(total)
 
@@ -388,11 +324,11 @@ def process_dictionary_xz12(num_qubits, output, hash_functions):
     list_of_nums = list(range(num_qubits))
     # print(list_of_nums)
     answer = []
-    for i in itertools.combinations(list_of_nums, 2):
+    for combination in itertools.combinations(list_of_nums, 2):
         # find two indices to fix
         # print(i)
-        first = i[0]
-        second = i[1]
+        first = combination[0]
+        second = combination[1]
 
         # finds hash function that splits differently
         hnum = 0
@@ -448,19 +384,8 @@ def process_dictionary_xz12(num_qubits, output, hash_functions):
         for k in oo:
             s4 += dictionary[k]
 
-        total = (s4 + s1 - s3 - s2)/8192
+        total = (s4 + s1 - s3 - s2) / get_number_of_measurements(dictionary)
         # print(s1, s2, s3, s4)
-        
-        ### New Method
-        bases = []
-        qubit_count = len(list_of_keys[0])
-        for k in range(qubit_count):
-            if k in i:
-                bases.append('X')
-            else:
-                bases.append('I')
-        total = calculate_s(dictionary, i, bases)
-        ###
         
         answer.append(total)
 
@@ -470,10 +395,10 @@ def process_dictionary_zx12(num_qubits, output, hash_functions):
     # list of numbers to iterate on
     list_of_nums = list(range(num_qubits))
     answer = []
-    for i in itertools.combinations(list_of_nums, 2):
+    for combination in itertools.combinations(list_of_nums, 2):
         # find two indices to fix
-        first = i[0]
-        second = i[1]
+        first = combination[0]
+        second = combination[1]
 
         # finds hash function that splits differently
         hnum = 0
@@ -519,19 +444,8 @@ def process_dictionary_zx12(num_qubits, output, hash_functions):
         for k in oo:
             s4 += dictionary[k]
 
-        total = (s4 + s1 - s3 - s2)/8192
+        total = (s4 + s1 - s3 - s2) / get_number_of_measurements(dictionary)
         # print(s1, s2, s3, s4)
-        
-        ### New Method
-        bases = []
-        qubit_count = len(list_of_keys[0])
-        for k in range(qubit_count):
-            if k in i:
-                bases.append('X')
-            else:
-                bases.append('I')
-        total = calculate_s(dictionary, i, bases)
-        ###
         
         answer.append(total)
 
@@ -541,10 +455,10 @@ def process_dictionary_yz12(num_qubits, output, hash_functions):
     # list of numbers to iterate on
     list_of_nums = list(range(num_qubits))
     answer = []
-    for i in itertools.combinations(list_of_nums, 2):
+    for combination in itertools.combinations(list_of_nums, 2):
         # find two indices to fix
-        first = i[0]
-        second = i[1]
+        first = combination[0]
+        second = combination[1]
 
         # finds hash function that splits differently
         hnum = 0
@@ -592,19 +506,8 @@ def process_dictionary_yz12(num_qubits, output, hash_functions):
         for k in oo:
             s4 += dictionary[k]
 
-        total = (s4 + s1 - s3 - s2)/8192
+        total = (s4 + s1 - s3 - s2) / get_number_of_measurements(dictionary)
         # print(s1, s2, s3, s4)
-        
-        ### New Method
-        bases = []
-        qubit_count = len(list_of_keys[0])
-        for k in range(qubit_count):
-            if k in i:
-                bases.append('X')
-            else:
-                bases.append('I')
-        total = calculate_s(dictionary, i, bases)
-        ###
         
         answer.append(total)
 
@@ -614,10 +517,10 @@ def process_dictionary_zy12(num_qubits, output, hash_functions):
     # list of numbers to iterate on
     list_of_nums = list(range(num_qubits))
     answer = []
-    for i in itertools.combinations(list_of_nums, 2):
+    for combination in itertools.combinations(list_of_nums, 2):
         # find two indices to fix
-        first = i[0]
-        second = i[1]
+        first = combination[0]
+        second = combination[1]
 
         # finds hash function that splits differently
         hnum = 0
@@ -663,18 +566,8 @@ def process_dictionary_zy12(num_qubits, output, hash_functions):
         for k in oo:
             s4 += dictionary[k]
 
-        total = (s4 + s1 - s3 - s2)/8192
+        total = (s4 + s1 - s3 - s2) / get_number_of_measurements(dictionary)
         # print(s1, s2, s3, s4)
-        
-        ### New Method
-        bases = []
-        for k in range(num_qubits):
-            if k in i:
-                bases.append('X')
-            else:
-                bases.append('I')
-        total = calculate_s(dictionary, i, bases)
-        ###
         
         answer.append(total)
 
